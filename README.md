@@ -1,57 +1,45 @@
-# MTP Academy — Coolify Static Deploy
+# MTP Academy - Deploy Coolify
 
-Esta versión está preparada para Coolify sin correr `npm install` ni `npm run build` dentro del servidor.
+## Estructura correcta para Coolify
 
-## Por qué esta versión existe
+Este repo está preparado para desplegar sin depender de npm dentro de Coolify.
+Coolify solo usa Nginx y copia la carpeta `dist/`.
 
-Si Coolify se queda pegado en:
-
-```bash
-RUN npm ci --no-audit --no-fund
-```
-
-normalmente es por conexión del VPS/Coolify con el registry de npm o por el proceso de instalación sin mostrar logs. Esta versión evita ese problema porque el sitio ya viene construido en la carpeta `dist/`.
-
-## Configuración en Coolify
+Configuración en Coolify:
 
 - Build type: Dockerfile
 - Base Directory: `/`
 - Dockerfile Location: `/Dockerfile`
 - Ports Exposes: `80`
 - Port Mappings: vacío
+- Network Aliases: vacío
 
-## Estructura importante
+## Archivos importantes
 
-```txt
-Dockerfile
-nginx.conf
-dist/
-public/
-src/
-package.json
-```
+- `Dockerfile`: producción estática con Nginx. Este es el que usa Coolify.
+- `nginx.conf`: configuración para servir React/Vite.
+- `dist/`: web ya construida. ESTA CARPETA SÍ DEBE SUBIRSE A GITHUB.
+- `src/App.jsx`: código editable de la página.
+- `public/images/`: imágenes editables antes de reconstruir.
 
-El Dockerfile solo copia `dist/` a Nginx. No instala dependencias.
+## Importante
 
-## Cómo editar resultados
+No borres `dist/` y no la pongas en `.gitignore` ni `.dockerignore`.
+El error de `COPY dist /usr/share/nginx/html` pasa cuando `dist/` no está en GitHub o cuando `.dockerignore` la excluye.
 
-Los resultados se editan en:
+## Editar resultados
 
-```txt
-src/App.jsx
-```
-
-Buscá:
+En `src/App.jsx`, busca:
 
 ```js
 const RESULT_GALLERY = [
 ```
 
-Agregá nuevos resultados copiando este formato:
+Agrega más resultados con este formato:
 
 ```js
 {
-  id: "reward-nuevo-001",
+  id: "resultado-nuevo-001",
   category: "rewards",
   badge: "FundingPips",
   title: "Reward procesado",
@@ -59,25 +47,29 @@ Agregá nuevos resultados copiando este formato:
   amount: "$1,000.00",
   date: "25 Abr 2026",
   meta: "Two Step · ROI 300%",
-  image: "/images/resultados/nuevo-reward.png",
+  image: "/images/resultados/mi-imagen.png",
 },
 ```
 
-Y poné la imagen en:
+Luego coloca la imagen en:
 
 ```txt
-public/images/resultados/nuevo-reward.png
+public/images/resultados/mi-imagen.png
 ```
 
-## Importante si editás el código
-
-Como esta versión despliega la carpeta `dist/`, si editás `src/App.jsx` necesitás reconstruir `dist` antes de subir a GitHub:
+Después reconstruye localmente:
 
 ```bash
-npm ci
+npm install
 npm run build
 ```
 
-Después subís también la carpeta `dist/` actualizada.
+Y sube a GitHub tanto `src/`, `public/` como `dist/`.
 
-Si querés que Coolify construya automáticamente cada cambio, usá la versión normal del proyecto, pero esa sí requiere que `npm ci` funcione en el VPS.
+## WhatsApp
+
+Los botones de aplicar apuntan a:
+
+`https://wa.me/50686579544?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20MTP%20Academy`
+
+Se cambia en `src/App.jsx`, dentro de `const SITE`.
