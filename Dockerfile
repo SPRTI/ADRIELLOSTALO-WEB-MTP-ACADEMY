@@ -2,8 +2,11 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm install
+# Copy only dependency manifests first to maximize Docker cache.
+COPY package.json package-lock.json ./
+
+# npm ci is faster and more deterministic than npm install when package-lock.json exists.
+RUN npm ci --no-audit --no-fund
 
 COPY . .
 RUN npm run build

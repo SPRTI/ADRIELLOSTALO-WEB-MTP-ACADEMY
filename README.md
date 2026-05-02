@@ -145,3 +145,16 @@ Preview local del build:
 ```bash
 npm run preview
 ```
+
+
+## Fix de deploy lento en Coolify
+
+Esta versión usa `npm ci --no-audit --no-fund` en el Dockerfile en lugar de `npm install`.
+Esto aprovecha `package-lock.json`, hace el build más determinístico y evita que npm intente recalcular dependencias durante cada deploy.
+
+Configuración Coolify recomendada:
+- Build type: Dockerfile
+- Base Directory: `/`
+- Dockerfile Location: `/Dockerfile`
+- Ports Exposes: `80`
+- Port Mappings: vacío
