@@ -32,7 +32,9 @@ const SITE = {
   brand: "MTP Academy",
   mentor: "Adriel Lostalo",
   domain: "www.adriellostalo.com",
-  applicationUrl: "https://www.adriellostalo.com",
+  phone: "+506 8657 9544",
+  whatsappUrl: "https://wa.me/50686579544?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20MTP%20Academy",
+  applicationUrl: "https://wa.me/50686579544?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20MTP%20Academy",
   instagram: "@adriellostalo",
   assets: {
     logo: "/images/logo-mtp.jpg",
@@ -382,7 +384,7 @@ function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden lg:block"><GlowButton href="#aplicar">Aplicar ahora</GlowButton></div>
+        <div className="hidden lg:block"><GlowButton href={SITE.applicationUrl}>Aplicar ahora</GlowButton></div>
 
         <button onClick={() => setOpen((v) => !v)} className="rounded-2xl border border-white/10 bg-white/5 p-3 text-white lg:hidden" aria-label="Abrir menú">
           <Icon name={open ? "x" : "menu"} className="h-5 w-5" />
@@ -426,37 +428,57 @@ function HeroDashboard() {
     <motion.div initial={{ opacity: 0, scale: 0.94, y: 25 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.1 }} className="relative">
       <div className="absolute -inset-6 rounded-[3rem] bg-emerald-400/20 blur-3xl" />
       <div className="relative overflow-hidden rounded-[2.5rem] border border-white/12 bg-black/45 p-4 shadow-2xl shadow-emerald-950/40 backdrop-blur-xl">
-        <div className="relative min-h-[560px] overflow-hidden rounded-[2rem] bg-gradient-to-br from-white/10 to-white/[0.03]">
+        <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-white/10 to-white/[0.03] p-4 sm:p-6">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(52,255,130,.28),transparent_35%)]" />
-          <div className="absolute left-6 right-6 top-6 flex items-center justify-between rounded-2xl border border-white/10 bg-black/35 p-4 backdrop-blur-xl">
-            <div className="flex items-center gap-3"><div className="h-3 w-3 rounded-full bg-emerald-300 shadow-[0_0_18px_rgba(52,255,130,.9)]" /><p className="text-xs font-black uppercase tracking-[0.25em] text-white/70">Live market room</p></div>
+
+          <div className="relative z-10 flex items-center justify-between rounded-2xl border border-white/10 bg-black/35 p-4 backdrop-blur-xl">
+            <div className="flex items-center gap-3">
+              <div className="h-3 w-3 rounded-full bg-emerald-300 shadow-[0_0_18px_rgba(52,255,130,.9)]" />
+              <p className="text-[10px] font-black uppercase tracking-[0.22em] text-white/70 sm:text-xs sm:tracking-[0.25em]">Live market room</p>
+            </div>
             <p className="text-xs font-black text-emerald-300">MTP</p>
           </div>
-          <div className="absolute left-8 right-8 top-28">
-            <div className="rounded-[2rem] border border-emerald-300/20 bg-black/55 p-7 backdrop-blur-xl">
-              <div className="mb-5 flex items-center justify-between">
-                <div><p className="text-xs font-black uppercase tracking-[0.25em] text-emerald-300">Primera generación</p><h3 className="mt-2 text-3xl font-black tracking-tight text-white">Performance dashboard</h3></div>
-                <div className="rounded-2xl border border-emerald-300/25 bg-emerald-300/10 p-3 text-emerald-300"><Icon name="trophy" className="h-6 w-6" /></div>
+
+          <div className="relative z-10 mt-8 rounded-[2rem] border border-emerald-300/20 bg-black/55 p-5 backdrop-blur-xl sm:p-7">
+            <div className="mb-5 flex items-center justify-between gap-4">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.25em] text-emerald-300">Primera generación</p>
+                <h3 className="mt-2 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-3xl">Performance dashboard</h3>
               </div>
-              <div className="h-52">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={growthCurve} margin={{ left: 0, right: 0, top: 10, bottom: 0 }}>
-                    <defs><linearGradient id="profitGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#3cff7e" stopOpacity={0.8} /><stop offset="95%" stopColor="#3cff7e" stopOpacity={0} /></linearGradient></defs>
-                    <CartesianGrid stroke="rgba(255,255,255,.08)" vertical={false} />
-                    <XAxis dataKey="month" stroke="rgba(255,255,255,.45)" tickLine={false} axisLine={false} />
-                    <YAxis stroke="rgba(255,255,255,.35)" tickLine={false} axisLine={false} />
-                    <Tooltip contentStyle={{ background: "rgba(0,0,0,.88)", border: "1px solid rgba(60,255,126,.25)", borderRadius: "16px", color: "white" }} formatter={(value) => [`${value}%`, "Profit"]} />
-                    <Area type="monotone" dataKey="profit" stroke="#3cff7e" strokeWidth={3} fill="url(#profitGradient)" />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </div>
-              <div className="mt-5 grid grid-cols-3 gap-3">
-                {growthCurve.map((item) => <div key={item.month} className="rounded-2xl bg-white/5 p-4 text-center"><p className="text-2xl font-black text-white">{item.profit}%</p><p className="text-xs text-white/45">{item.month}</p></div>)}
-              </div>
+              <div className="rounded-2xl border border-emerald-300/25 bg-emerald-300/10 p-3 text-emerald-300"><Icon name="trophy" className="h-6 w-6" /></div>
+            </div>
+
+            <div className="h-56 sm:h-60">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={growthCurve} margin={{ left: -15, right: 8, top: 10, bottom: 0 }}>
+                  <defs><linearGradient id="profitGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#3cff7e" stopOpacity={0.8} /><stop offset="95%" stopColor="#3cff7e" stopOpacity={0} /></linearGradient></defs>
+                  <CartesianGrid stroke="rgba(255,255,255,.08)" vertical={false} />
+                  <XAxis dataKey="month" stroke="rgba(255,255,255,.45)" tickLine={false} axisLine={false} />
+                  <YAxis stroke="rgba(255,255,255,.35)" tickLine={false} axisLine={false} />
+                  <Tooltip contentStyle={{ background: "rgba(0,0,0,.88)", border: "1px solid rgba(60,255,126,.25)", borderRadius: "16px", color: "white" }} formatter={(value) => [`${value}%`, "Profit"]} />
+                  <Area type="monotone" dataKey="profit" stroke="#3cff7e" strokeWidth={3} fill="url(#profitGradient)" />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="mt-5 grid grid-cols-3 gap-3">
+              {growthCurve.map((item) => (
+                <div key={item.month} className="rounded-2xl bg-white/5 p-3 text-center sm:p-4">
+                  <p className="text-xl font-black text-white sm:text-2xl">{item.profit}%</p>
+                  <p className="text-xs text-white/45">{item.month}</p>
+                </div>
+              ))}
             </div>
           </div>
-          <motion.div animate={{ y: [0, -12, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }} className="absolute bottom-7 left-8 right-8 rounded-3xl border border-yellow-300/20 bg-yellow-300/[0.08] p-5 backdrop-blur-xl">
-            <div className="flex items-start gap-4"><div className="rounded-2xl bg-yellow-300 p-3 text-black"><Icon name="crown" className="h-5 w-5" /></div><div><p className="font-black text-white">Escala hacia MTP VIP.</p><p className="mt-1 text-sm leading-6 text-white/58">Los mejores estudiantes pueden pasar a un grupo avanzado con seguimiento más cercano.</p></div></div>
+
+          <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }} className="relative z-10 mt-5 rounded-3xl border border-yellow-300/20 bg-yellow-300/[0.08] p-5 backdrop-blur-xl">
+            <div className="flex items-start gap-4">
+              <div className="rounded-2xl bg-yellow-300 p-3 text-black"><Icon name="crown" className="h-5 w-5" /></div>
+              <div>
+                <p className="font-black text-white">Escala hacia MTP VIP.</p>
+                <p className="mt-1 text-sm leading-6 text-white/58">Los mejores estudiantes pueden pasar a un grupo avanzado con seguimiento más cercano.</p>
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>
@@ -475,7 +497,7 @@ function Hero() {
             <h1 className="max-w-4xl text-5xl font-black leading-[0.95] tracking-[-0.06em] sm:text-6xl lg:text-8xl">Opera con estructura. <span className="bg-gradient-to-r from-emerald-300 via-white to-yellow-200 bg-clip-text text-transparent">Escala con criterio.</span></h1>
             <p className="mt-7 max-w-2xl text-lg leading-8 text-white/72 sm:text-xl">MTP Academy es una formación integral creada por un trader con 4 años de experiencia en mercados financieros. La base es clara: estrategia, psicotrading, gestión del capital, resultados medibles y una ruta de escalación hacia un grupo avanzado VIP.</p>
           </motion.div>
-          <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.15 }} className="mt-8 flex flex-col gap-4 sm:flex-row"><GlowButton href="#aplicar">Quiero aplicar</GlowButton><GlowButton href="#galeria" variant="secondary">Ver pruebas</GlowButton></motion.div>
+          <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.15 }} className="mt-8 flex flex-col gap-4 sm:flex-row"><GlowButton href={SITE.applicationUrl}>Quiero aplicar</GlowButton><GlowButton href="#galeria" variant="secondary">Ver pruebas</GlowButton></motion.div>
           <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.25 }} className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">{SITE.stats.map((item) => <StatCard key={item.label} {...item} />)}</motion.div>
         </div>
         <HeroDashboard />
@@ -582,7 +604,7 @@ function VIPSection() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_15%,rgba(255,211,92,.20),transparent_35%),linear-gradient(180deg,#000_0%,#0b0902_100%)]" />
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[.95fr_1.05fr] lg:items-center">
-          <div><SectionBadge tone="gold">{VIP_PROGRAM.eyebrow}</SectionBadge><h2 className="text-4xl font-black tracking-[-0.04em] sm:text-6xl lg:text-7xl"><span className="bg-gradient-to-r from-yellow-200 via-white to-yellow-400 bg-clip-text text-transparent">{VIP_PROGRAM.name}</span></h2><h3 className="mt-5 text-3xl font-black leading-tight text-white">{VIP_PROGRAM.headline}</h3><p className="mt-6 text-lg leading-8 text-white/65">{VIP_PROGRAM.description}</p><div className="mt-8 flex flex-col gap-4 sm:flex-row"><GlowButton href="#aplicar" variant="gold">Aplicar al proceso</GlowButton><GlowButton href="#galeria" variant="secondary">Ver resultados</GlowButton></div></div>
+          <div><SectionBadge tone="gold">{VIP_PROGRAM.eyebrow}</SectionBadge><h2 className="text-4xl font-black tracking-[-0.04em] sm:text-6xl lg:text-7xl"><span className="bg-gradient-to-r from-yellow-200 via-white to-yellow-400 bg-clip-text text-transparent">{VIP_PROGRAM.name}</span></h2><h3 className="mt-5 text-3xl font-black leading-tight text-white">{VIP_PROGRAM.headline}</h3><p className="mt-6 text-lg leading-8 text-white/65">{VIP_PROGRAM.description}</p><div className="mt-8 flex flex-col gap-4 sm:flex-row"><GlowButton href={SITE.applicationUrl} variant="gold">Aplicar al proceso</GlowButton><GlowButton href="#galeria" variant="secondary">Ver resultados</GlowButton></div></div>
           <div className="grid gap-5 md:grid-cols-2"><div className="rounded-[2rem] border border-yellow-300/20 bg-yellow-300/[0.07] p-7 backdrop-blur-xl"><div className="mb-5 flex items-center gap-3"><div className="rounded-2xl bg-yellow-300 p-3 text-black"><Icon name="lock" /></div><h3 className="text-2xl font-black">Requisitos</h3></div><div className="space-y-4">{VIP_PROGRAM.requirements.map((item) => <div key={item} className="flex gap-3 text-sm leading-6 text-white/70"><Icon name="check" className="mt-0.5 h-5 w-5 shrink-0 text-yellow-200" />{item}</div>)}</div></div><div className="rounded-[2rem] border border-white/10 bg-white/[0.045] p-7 backdrop-blur-xl"><div className="mb-5 flex items-center gap-3"><div className="rounded-2xl bg-emerald-300 p-3 text-black"><Icon name="crown" /></div><h3 className="text-2xl font-black">Beneficios</h3></div><div className="space-y-4">{VIP_PROGRAM.benefits.map((item) => <div key={item} className="flex gap-3 text-sm leading-6 text-white/70"><Icon name="check" className="mt-0.5 h-5 w-5 shrink-0 text-emerald-300" />{item}</div>)}</div></div></div>
         </div>
       </div>
@@ -598,7 +620,7 @@ function ApplySection() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_10%,rgba(52,255,130,.2),transparent_35%),linear-gradient(180deg,#000_0%,#061008_100%)]" />
       <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
         <div className="mx-auto max-w-4xl text-center"><SectionBadge>Aplicación privada</SectionBadge><h2 className="text-4xl font-black tracking-[-0.04em] sm:text-6xl lg:text-7xl">No entres a otro grupo. Entra a un proceso.</h2><p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-white/68">MTP Academy está pensada para personas que quieren aprender trading con estructura seria, acompañamiento y mentalidad de largo plazo. La meta es construir criterio operativo.</p></div>
-        <div className="mx-auto mt-12 grid max-w-6xl gap-6 lg:grid-cols-[.95fr_1.05fr]"><div className="rounded-[2.4rem] border border-emerald-300/25 bg-emerald-300/[0.08] p-8 shadow-[0_0_50px_rgba(52,255,130,.12)] backdrop-blur-xl"><p className="text-sm font-black uppercase tracking-[0.25em] text-emerald-300">Para quién es</p><h3 className="mt-4 text-3xl font-black text-white">Personas listas para operar con reglas.</h3><div className="mt-7 space-y-4">{features.map((feature) => <div key={feature} className="flex gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 shrink-0 text-emerald-300" /><p className="leading-7 text-white/68">{feature}</p></div>)}</div></div><div className="rounded-[2.4rem] border border-white/10 bg-white/[0.045] p-8 backdrop-blur-xl"><div className="flex items-center justify-between gap-4"><div><p className="text-sm font-black uppercase tracking-[0.25em] text-white/45">{SITE.brand}</p><h3 className="mt-3 text-4xl font-black text-white">Primera llamada</h3></div><div className="rounded-3xl bg-emerald-300 p-4 text-black"><Icon name="lock" className="h-8 w-8" /></div></div><p className="mt-6 leading-8 text-white/65">Agenda una revisión para conocer tu nivel, tus objetivos y si el programa se ajusta a tu etapa actual. El trading tiene riesgo, por eso el enfoque debe ser educativo, disciplinado y responsable.</p><div className="mt-8 grid gap-4 sm:grid-cols-2"><div className="rounded-2xl bg-black/35 p-5"><Icon name="star" className="h-6 w-6 text-emerald-300" /><p className="mt-4 text-sm font-bold text-white">Evaluación de perfil</p><p className="mt-2 text-sm leading-6 text-white/50">Nivel, experiencia y expectativas reales.</p></div><div className="rounded-2xl bg-black/35 p-5"><Icon name="crown" className="h-6 w-6 text-yellow-200" /><p className="mt-4 text-sm font-bold text-white">Ruta Academy → VIP</p><p className="mt-2 text-sm leading-6 text-white/50">Formación base y posible escalación avanzada.</p></div></div><div className="mt-8 flex flex-col gap-4 sm:flex-row"><GlowButton href={SITE.applicationUrl}>Aplicar en {SITE.domain}</GlowButton><GlowButton href="#vip" variant="secondary">Conocer VIP</GlowButton></div></div></div>
+        <div className="mx-auto mt-12 grid max-w-6xl gap-6 lg:grid-cols-[.95fr_1.05fr]"><div className="rounded-[2.4rem] border border-emerald-300/25 bg-emerald-300/[0.08] p-8 shadow-[0_0_50px_rgba(52,255,130,.12)] backdrop-blur-xl"><p className="text-sm font-black uppercase tracking-[0.25em] text-emerald-300">Para quién es</p><h3 className="mt-4 text-3xl font-black text-white">Personas listas para operar con reglas.</h3><div className="mt-7 space-y-4">{features.map((feature) => <div key={feature} className="flex gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 shrink-0 text-emerald-300" /><p className="leading-7 text-white/68">{feature}</p></div>)}</div></div><div className="rounded-[2.4rem] border border-white/10 bg-white/[0.045] p-8 backdrop-blur-xl"><div className="flex items-center justify-between gap-4"><div><p className="text-sm font-black uppercase tracking-[0.25em] text-white/45">{SITE.brand}</p><h3 className="mt-3 text-4xl font-black text-white">Primera llamada</h3></div><div className="rounded-3xl bg-emerald-300 p-4 text-black"><Icon name="lock" className="h-8 w-8" /></div></div><p className="mt-6 leading-8 text-white/65">Agenda una revisión para conocer tu nivel, tus objetivos y si el programa se ajusta a tu etapa actual. El trading tiene riesgo, por eso el enfoque debe ser educativo, disciplinado y responsable.</p><div className="mt-8 grid gap-4 sm:grid-cols-2"><div className="rounded-2xl bg-black/35 p-5"><Icon name="star" className="h-6 w-6 text-emerald-300" /><p className="mt-4 text-sm font-bold text-white">Evaluación de perfil</p><p className="mt-2 text-sm leading-6 text-white/50">Nivel, experiencia y expectativas reales.</p></div><div className="rounded-2xl bg-black/35 p-5"><Icon name="crown" className="h-6 w-6 text-yellow-200" /><p className="mt-4 text-sm font-bold text-white">Ruta Academy → VIP</p><p className="mt-2 text-sm leading-6 text-white/50">Formación base y posible escalación avanzada.</p></div></div><div className="mt-8 flex flex-col gap-4 sm:flex-row"><GlowButton href={SITE.applicationUrl}>Escribir por WhatsApp</GlowButton><GlowButton href="#vip" variant="secondary">Conocer VIP</GlowButton></div></div></div>
         <div className="mx-auto mt-10 max-w-5xl rounded-3xl border border-yellow-300/20 bg-yellow-300/[0.06] p-5 text-sm leading-7 text-yellow-50/70"><strong className="text-yellow-100">Aviso importante:</strong> el trading implica riesgo y no garantiza ganancias. Los resultados pasados, certificaciones o retiros de estudiantes no aseguran resultados futuros. Esta página debe usarse con enfoque educativo y con información verificable.</div>
       </div>
     </section>
